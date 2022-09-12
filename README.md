@@ -6,15 +6,24 @@
 npx hardhat run --network auroraTestnet ./scripts/build_bab_root.js
 ```
 
----
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+## Usage
 
-Try running some of the following tasks:
+A protorol which wants to use the KYC gateway:
+```
+IBABGateway _gateway;
+modifier onlyKYCAllowed(address account) {
+    require(_gateway.isRegistered(account), 'Account should pass KYC');
+    _;
+}
+```
 
-```shell
-npx hardhat help
-npx hardhat test
-GAS_REPORT=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
+Guarding ERC20 usage:
+```
+function _beforeTokenTransfer(
+    address from,
+    address to,
+    uint256 amount
+) internal virtual override onlyKYCAllowed(_msgSender()) {
+    super._beforeTokenTransfer(from, to, amount);
+}
 ```
