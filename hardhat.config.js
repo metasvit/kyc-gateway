@@ -20,7 +20,7 @@ module.exports = {
   },
   networks: {
     auroraTestnet: {
-      url: `https://aurora-testnet.infura.io/v3/${INFURA_TEST_KEY}`,
+      url: `https://aurora-testnet.infura.io/v3/${process.env.INFURA_TEST_KEY}`,
       chainId: 1313161555,
       accounts: process.env.TEST_PRIVATE_KEY
         ? [process.env.TEST_PRIVATE_KEY]
