@@ -37,38 +37,74 @@ function App() {
   const { status, connect, account, chainId, ethereum, switchChain } =
     useMetaMask();
 
-  if (status === "initializing")
-    return <div>Synchronisation with MetaMask ongoing...</div>;
+  
+  // if (status === "initializing")
+  //   return <div>Synchronization with MetaMask ongoing...</div>;
 
-  if (status === "unavailable") return <div>MetaMask not available :(</div>;
+  // if (status === "unavailable") return <div>MetaMask not available :(</div>;
 
-  if (status === "notConnected")
-    return <button onClick={connect}>Connect to MetaMask</button>;
+  // if (status === "notConnected")
+  //   return <button onClick={connect}>Connect to MetaMask</button>;
 
-  if (status === "connecting") return <div>Connecting...</div>;
+  // if (status === "connecting") return <div>Connecting...</div>;
 
-  if (status === "connected") {
-    if (chainId !== AURORA_TESTNET_CHAINID) {
-      return (
-        <div>
-          <button onClick={() => switchChain(AURORA_TESTNET_CHAINID)}>
-            Change network
-          </button>
+  // if (status === "connected") {
+  //   if (chainId !== AURORA_TESTNET_CHAINID) {
+  //     return (
+  //       <div>
+  //         <button className="button-connect" onClick={() => switchChain(AURORA_TESTNET_CHAINID)}>
+  //           Change network
+  //         </button>
+  //       </div>
+  //     );
+  //   }
+
+  //   return (
+  //         <div>
+  //             Connected account {account} on chain ID {chainId}
+  //           <button className="button-connect" onClick={() => verifyKyc(account, ethereum)}>Verify</button>
+  //         </div>
+  //   );
+  // }
+  
+  return (
+    <main className="container">
+      <div className="section-box">
+        <div className="message-box">
+          {(status === "initializing") &&
+            <div>Synchronization with MetaMask ongoing...</div>
+          }
+          {(status === "unavailable") &&
+            <div>MetaMask not available :(</div>
+          }
+          {(status === "connecting") &&
+            <div>Connecting...</div>
+          }
+          {(status === "connected" && chainId === AURORA_TESTNET_CHAINID) &&
+            <>
+            <div>Connected account {account} </div>
+            <div>on chain ID {chainId}</div>
+            </>
+          }
         </div>
-      );
-    }
-
-    return (
-      <div>
-        <div>
-          Connected account {account} on chain ID {chainId}
-        </div>
-        <button onClick={() => verifyKyc(account, ethereum)}>Verify</button>
+      {(status === "notConnected") &&
+          <button className="button-connect" onClick={connect}>
+          Connect to MetaMask
+        </button>
+      }
+      {(status === "connected" && chainId !== AURORA_TESTNET_CHAINID) &&
+        <button className="button-connect" onClick={() => switchChain(AURORA_TESTNET_CHAINID)}>
+          Change network
+        </button>
+      }
+      {(status === "connected" && chainId === AURORA_TESTNET_CHAINID) &&
+        <button className="button-connect" onClick={() => verifyKyc(account, ethereum)}>
+          Verify
+        </button>
+      }
       </div>
+    </main>
     );
-  }
-
-  return null;
 }
 
 export default App;
