@@ -1,6 +1,17 @@
-import "./App.css";
+import React, { useRef, useEffect } from "react";
+import { useLocation, Switch, Route } from "react-router-dom";
 import { useMetaMask } from "metamask-react";
 import { utils } from "ethers";
+
+// import "./App.css";
+import AppRoute from "./utils/AppRoute";
+import ScrollReveal from "./utils/ScrollReveal";
+
+// Layouts
+import LayoutDefault from "./layouts/LayoutDefault";
+
+// Views
+import Home from "./views/Home";
 
 const AURORA_TESTNET_CHAINID = "0x4e454153";
 const CONTRACT_ADDRESS = "0x92687333b8a30d90f3203f1abf8621c7d28b647e";
@@ -34,8 +45,8 @@ async function verifyKyc(address, ethereum) {
 }
 
 function App() {
-  const { status, connect, account, chainId, ethereum, switchChain } =
-    useMetaMask();
+  // const { status, connect, account, chainId, ethereum, switchChain } =
+  //   useMetaMask();
 
   // if (status === "initializing")
   //   return <div>Synchronization with MetaMask ongoing...</div>;
@@ -66,45 +77,67 @@ function App() {
   //   );
   // }
 
+  // return (
+  //   <main className="container">
+  //     <div className="section-box">
+  //       <div className="message-box">
+  //         {status === "initializing" && (
+  //           <div>Synchronization with MetaMask ongoing...</div>
+  //         )}
+  //         {status === "unavailable" && <div>MetaMask not available :(</div>}
+  //         {status === "connecting" && <div>Connecting...</div>}
+  //         {status === "connected" && chainId === AURORA_TESTNET_CHAINID && (
+  //           <>
+  //             <div>Connected account {account} </div>
+  //             <div>on chain ID {chainId}</div>
+  //           </>
+  //         )}
+  //       </div>
+  //       {status === "notConnected" && (
+  //         <button className="button-connect" onClick={connect}>
+  //           Connect to MetaMask
+  //         </button>
+  //       )}
+  //       {status === "connected" && chainId !== AURORA_TESTNET_CHAINID && (
+  //         <button
+  //           className="button-connect"
+  //           onClick={() => switchChain(AURORA_TESTNET_CHAINID)}
+  //         >
+  //           Change network
+  //         </button>
+  //       )}
+  //       {status === "connected" && chainId === AURORA_TESTNET_CHAINID && (
+  //         <button
+  //           className="button-connect"
+  //           onClick={() => verifyKyc(account, ethereum)}
+  //         >
+  //           Verify
+  //         </button>
+  //       )}
+  //     </div>
+  //   </main>
+  // );
+
+  const childRef = useRef();
+
   return (
-    <main className="container">
-      <div className="section-box">
-        <div className="message-box">
-          {status === "initializing" && (
-            <div>Synchronization with MetaMask ongoing...</div>
-          )}
-          {status === "unavailable" && <div>MetaMask not available :(</div>}
-          {status === "connecting" && <div>Connecting...</div>}
-          {status === "connected" && chainId === AURORA_TESTNET_CHAINID && (
-            <>
-              <div>Connected account {account} </div>
-              <div>on chain ID {chainId}</div>
-            </>
-          )}
-        </div>
-        {status === "notConnected" && (
-          <button className="button-connect" onClick={connect}>
-            Connect to MetaMask
-          </button>
-        )}
-        {status === "connected" && chainId !== AURORA_TESTNET_CHAINID && (
-          <button
-            className="button-connect"
-            onClick={() => switchChain(AURORA_TESTNET_CHAINID)}
-          >
-            Change network
-          </button>
-        )}
-        {status === "connected" && chainId === AURORA_TESTNET_CHAINID && (
-          <button
-            className="button-connect"
-            onClick={() => verifyKyc(account, ethereum)}
-          >
-            Verify
-          </button>
-        )}
-      </div>
-    </main>
+    <ScrollReveal
+      ref={childRef}
+      children={() => (
+        <Switch>
+          <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
+          {/* <Route
+            exact
+            path="/"
+            render={(props) => (
+              <LayoutDefault>
+                <Home {...props} />
+              </LayoutDefault>
+            )}
+          /> */}
+        </Switch>
+      )}
+    />
   );
 }
 
