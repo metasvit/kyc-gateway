@@ -1,19 +1,23 @@
-.App {
-  text-align: center;
-}
+:root {
+  --font-family: Arial,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif;
+  --background-color: #000;
+  --font-color: rgb(129, 247, 255);
+  --button-color: rgba(129, 247, 255, 0.8);
+  --button-shadow-color: rgba(23, 182, 197, 0.5);
+  --button-blur-color: rgba(83, 83, 83, 0.266);
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+} 
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -22,17 +26,83 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+} */
+
+
+.container {
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 320px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 10px;
+
+  background-color: var(--background-color);
+  background-repeat: no-repeat;
+  overflow: hidden;
 }
 
-.App-link {
-  color: #61dafb;
+.section-box {
+  width: 240px;
+  height: 120px;
+  margin: 200px auto 0 auto;
+  padding: 20px;
+  border: none;
+  border-radius: 25px;
+  backdrop-filter: blur(344px);
+  background-color: var(--button-blur-color);
+
+  -webkit-box-shadow: 0px 5px 25px 12px var(--button-shadow-color);
+    -moz-box-shadow: 0px 5px 25px 12px var(--button-shadow-color);
+    box-shadow: 0px 5px 25px 12px var(--button-shadow-color);
+  
+    font-family: var(--font-family);
+    
+      color: var(--font-color);
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.15;
+      letter-spacing: 0.02em;
+}
+@media screen and (min-width: 768px) {
+  .section-box {
+    padding: 40px;
+    width: 660px;
+    font-size: 18px;
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.section-box button {
+  font-size: 16px;
+  height: 50px;
+  width: 100%;
+  border: none;
+  border-radius: 15px;
+  font-size: 18px;
+  font-weight: 900;
+  background-color: var(--button-color);
+  
+}
+.section-box button:hover {
+  transform: scale(1.02);
+    -webkit-box-shadow: 0px 0px 25px 5px var(--button-shadow-color);
+      -moz-box-shadow: 0px 0px 25px 5px var(--button-shadow-color);
+      box-shadow: 0px 0px 25px 5px var(--button-shadow-color);
+}
+.section-box button:active {
+transform: scale(0.99);
+-webkit-box-shadow: 0px 0px 10px 4px var(--button-blur-color) inset;
+  -moz-box-shadow: 0px 0px 10px 4px var(--button-blur-color) inset;
+  box-shadow: 0px 0px 10px 4px var(--button-blur-color) inset;
+}
+
+.message-box {
+  height: 70px;
+  overflow: hidden;
 }
