@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import ReactGA from 'react-ga';
+
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {MetaMaskProvider} from "metamask-react";
 
+ReactGA.initialize('UA-241029534-1');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
