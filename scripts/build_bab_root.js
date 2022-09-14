@@ -11,8 +11,11 @@ const { tokens } = require("./tokens.json");
     entries = signers.slice(0, 10).map((signer) => [signer.address, 1]);
     target = `providers/test_bab`;
   } else {
-    entries = Object.entries(tokens).map(([key, value]) => [value, key]);
     shardNybbles = 2;
+    entries = Object.entries(tokens).map(([key, value]) => [value, key]);
   }
   ShardedMerkleTree.build(entries, shardNybbles, target);
+
+  const tree = ShardedMerkleTree.fromFiles(target);
+  console.log("Merkle Root", tree.root);
 })();
